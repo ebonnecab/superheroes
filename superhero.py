@@ -1,3 +1,4 @@
+import random
 class Hero:
     def __init__(self, name, starting_health=100):
         self.name = name
@@ -18,7 +19,10 @@ class Hero:
             
     
     def take_damage(self, damage):
-        self.current_health -= damage
+        remaining_health = self.current_health - damage
+        self.current_health = remaining_health
+        print(remaining_health)
+
 
     def is_alive(self):
         if self.current_health > 0:
@@ -27,19 +31,58 @@ class Hero:
             return False
 
     def fight(self, opponent):
-        while self.is_alive == True:
+        # while hero.current_health > 0 or opponent.current_health > 0:
+        #     hero.attack()
+            # print ("{} died.").format(name)
+        pass
+
+class Ability:
+    def __init__ (self, name, max_attack):
+        '''Initialize starting values'''
+        self.name = name
+        self.max_attack = max_attack
         
-           pass
+    def attack(self):
+        '''Returns attack value between 0 and full attack'''
+        return random.randint(0, self.max_attack)
 
+class Weapon(Ability):
+    def attack(self):
+        return random.randint(self.max_attack//2, self.max_attack)
 
+class Team:
+    def init(self, team_name):
+        '''Instantiate resources.'''
+        self.name = team_name
+        self.heroes = []
+
+    def add_hero(self, Hero):
+        '''Add hero object to heroes list.'''
+        pass
+
+    def remove_hero(self, name):
+        '''Removes hero from hero list.'''
+        pass
+
+    def view_heroes(self):
+        '''Prints out all heroes to console.'''
+        pass
+         
 if __name__ == "__main__":
         hero = Hero("Wonder Woman")
         print(hero.attack())
+        ability = Ability("Divine speed", 300)
+        hero.add_ability(ability)
+        print(hero.attack())
+        new_ability = Ability("Super Human Strength", 800)
+        hero.add_ability(new_ability)
+        print(hero.attack())
 
-class Ability:
-    def __init__ (self, name, attack_strength):
-        '''Initialize starting values'''
-        pass
-    def attack(self):
-        '''Returns attack value between 0 and full attack'''
-        pass
+        # TO DO: test fight function
+        # hero2 = Hero("Jodie Foster")
+        # ability2 = Ability("Science", 800)
+        # hero2.add_ability(ability2)
+        # hero.fight(hero2)
+    
+
+        
