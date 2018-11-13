@@ -90,6 +90,13 @@ class Team:
         '''Prints out all heroes to console.'''
         hero_index = print(self.heroes.index())
         return hero_index
+class Arena:
+    def __init__(self):
+      self.team_one = None
+      self.team_two = None
+    
+    # def create_ability(self)
+
 if __name__ == "__main__":
         hero = Hero("Wonder Woman")
         print(hero.attack())
