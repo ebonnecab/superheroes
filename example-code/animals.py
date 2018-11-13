@@ -3,6 +3,11 @@ class Tiger ():
     def __init__(self, name, age):
         self.name = name
         self.age = age
+    def __str__(self):
+        return "{} is {} years old.".format(self.name, self.age)
+
 
 tony = Tiger("Tony", 66)
-print("{} is {} years old.".format(tony.name, tony.age)) 
+print(tony)
+hobbes = Tiger("Hobbes", 55)
+print(hobbes)
