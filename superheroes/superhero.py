@@ -4,11 +4,13 @@ class Hero:
         self.name = name
         self.starting_health = starting_health
         self.current_health = starting_health
-        self.abilities = list()
+        self.abilities = []
+        self.armors = []
 
         
     def add_ability(self, ability):
-        self.abilities.append(ability)
+        new_ability = self.abilities.append(ability)
+        return new_ability
 
 
     def attack(self):
@@ -37,6 +39,23 @@ class Hero:
         opponent.take_damage(damage)
         self.take_damage(damage)
 
+    def add_weapon(self, weapon):
+        '''
+        This method will append the weapon object passed in as an argument to the list of abilities that already exists -- self.abilities.
+        This means that self.abilities will be a list of abilities and weapons.
+        '''
+        weaponry = self.abilities.append(weapon)
+        return weaponry
+  
+
+    
+    def add_armor(self, armor):
+        '''
+        This method will add the armor object that is passed in to the list of armor objects definied in the initializer as self.armors.
+        '''
+        armory = self.armors.append(armor)
+        return armory
+
 class Ability:
     def __init__ (self, name, max_attack):
         '''Initialize starting values'''
@@ -49,6 +68,7 @@ class Ability:
 
 class Weapon(Ability):
     def attack(self):
+        '''returns a random value between one half to full attack power'''
         return random.randint(self.max_attack//2, self.max_attack)
 
 class Team:
@@ -59,16 +79,17 @@ class Team:
 
     def add_hero(self, Hero):
         '''Add hero object to heroes list.'''
-        pass
+        new_hero = self.heroes.append(Hero)
+        return new_hero
 
     def remove_hero(self, name):
         '''Removes hero from hero list.'''
-        pass
-
+        delete_hero = self.heroes.remove(name)
+        return delete_hero
     def view_heroes(self):
         '''Prints out all heroes to console.'''
-        pass
-         
+        hero_index = print(self.heroes.index())
+        return hero_index
 if __name__ == "__main__":
         hero = Hero("Wonder Woman")
         print(hero.attack())
@@ -78,8 +99,6 @@ if __name__ == "__main__":
         new_ability = Ability("Super Human Strength", 800)
         hero.add_ability(new_ability)
         print(hero.attack())
-
-        # TO DO: test fight function
         hero2 = Hero("Jodie Foster")
         ability2 = Ability("Science", 800)
         hero2.add_ability(ability2)
