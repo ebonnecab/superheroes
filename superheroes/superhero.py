@@ -86,16 +86,73 @@ class Team:
         '''Removes hero from hero list.'''
         delete_hero = self.heroes.remove(name)
         return delete_hero
+
     def view_heroes(self):
         '''Prints out all heroes to console.'''
         hero_index = print(self.heroes.index())
         return hero_index
+        
 class Arena:
     def __init__(self):
       self.team_one = None
       self.team_two = None
-    
-    # def create_ability(self)
+
+    def create_ability(self):
+        '''
+        This method will let user create an ability,
+        prompt them for necessary info,
+        return the new ability object.
+        '''
+        pass
+    def create_weapon(self):
+        '''
+        This method will let user create a weapon.
+        prompt them for necessary info,
+        return new weapon
+        '''
+        pass
+    def create_armor(self):
+        '''
+        This method lets user create armor,
+        prompt them for necessary info,
+        return new armor object
+        '''
+        pass
+    def create_hero(self):
+        '''
+        This method lets user create a hero,
+        user should specify if they want armor, weapons, and abilities,
+        return new hero object
+        '''
+        pass
+    def build_team_one(self):
+        '''
+        This method will let user create team one,
+        prompt them for number of heroes,
+        call self.hero() for every hero the user wants to add,
+        add created hero to team one
+        '''
+        pass
+    def build_team_two(self):
+        '''
+        This method will let user create team two,
+        prompt them for number of heroes,
+        call self.hero() for every hero the user wants to add,
+        add created hero to team two
+        '''
+        pass
+    def team_battle(self):
+        '''
+        This method battes with both teams,
+        call the attack method in team objects for functionality
+        '''
+        pass
+    def show_stats(self):
+        '''
+        This method prints out battle stats, kill/death ratio,
+        winning team, surviving heros
+        '''
+        pass
 
 if __name__ == "__main__":
         hero = Hero("Wonder Woman")
