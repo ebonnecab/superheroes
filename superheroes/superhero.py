@@ -103,7 +103,12 @@ class Arena:
         prompt them for necessary info,
         return the new ability object.
         '''
-        pass
+        print("Time to give your hero some abilities!")
+        ability_input= input("Name your special ability: ")
+        max_input = input("What is the max damage of your ability: ")
+        ability = Ability(ability_input, max_input)
+        return ability
+        
     def create_weapon(self):
         '''
         This method will let user create a weapon.
@@ -124,7 +129,12 @@ class Arena:
         user should specify if they want armor, weapons, and abilities,
         return new hero object
         '''
-        pass
+        hero_input = input("Name your Hero!: ")
+        user_hero = Hero(hero_input)
+        hero.add_ability(self.create_ability())
+        hero.add_armor(self.create_armor())
+        hero.add_weapon(self.create_weapon())
+        return user_hero
     def build_team_one(self):
         '''
         This method will let user create team one,
