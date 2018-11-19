@@ -6,12 +6,12 @@ class Hero:
         self.current_health = starting_health
         self.abilities = []
         self.armors = []
-
-        
+        self.deaths = 0
+        self.kills = 0
+   
     def add_ability(self, ability):
         new_ability = self.abilities.append(ability)
         return new_ability
-
 
     def attack(self):
         total = 0
@@ -19,13 +19,14 @@ class Hero:
            total += ability.attack()
         return total
             
-    
     def take_damage(self, damage):
-        remaining_health = self.current_health - damage
-        self.current_health = remaining_health
-        print(remaining_health)
+      #use new defend method before updating health
+      #update number of deaths if the hero dies
+        self.current_health -= damage
 
-
+    def add_kill(self, num_kills):
+        self.kills += num_kills
+        
     def is_alive(self):
         if self.current_health > 0:
             return True
@@ -33,6 +34,8 @@ class Hero:
             return False
 
     def fight(self, opponent):
+        #need to update the number of kills the hero has when opponent dies
+
      '''Runs a loop to attack opponent until someoe dies'''
      while self.is_alive() and opponent.is_alive():
         damage = self.attack() 
@@ -47,14 +50,28 @@ class Hero:
         weaponry = self.abilities.append(weapon)
         return weaponry
   
-
-    
     def add_armor(self, armor):
         '''
         This method will add the armor object that is passed in to the list of armor objects definied in the initializer as self.armors.
         '''
         armory = self.armors.append(armor)
         return armory
+    def defend(self):
+        '''
+        This method should run the block method on each piece of armor 
+        and calculate total defense
+        If the hero's health is zero return zero
+        '''
+        total_def = 0
+        if self.current_health == 0:
+            return 0
+        else:
+            for armor in self.armors:
+                total_def += armor.defend()
+            return total_def
+    
+
+
 
 class Ability:
     def __init__ (self, name, max_attack):
@@ -70,6 +87,16 @@ class Weapon(Ability):
     def attack(self):
         '''returns a random value between one half to full attack power'''
         return random.randint(self.max_attack//2, self.max_attack)
+
+class Armor:
+    def __init__(self, name, max_block):
+        '''Instantiate name and defense strength.'''
+        self.name = name
+        self.max_block = max_block
+        
+    def block(self):
+        '''returns a random value between 0 and max_block'''
+        return random.randint(0, self.max_block)
 
 class Team:
     def init(self, team_name):
@@ -108,21 +135,28 @@ class Arena:
         max_input = input("What is the max damage of your ability: ")
         ability = Ability(ability_input, max_input)
         return ability
-        
+
     def create_weapon(self):
         '''
         This method will let user create a weapon.
         prompt them for necessary info,
         return new weapon
         '''
-        pass
+        print("Next, you should give your hero a weapon!")
+        weapon_input = input("What is the name of your weapon?: ")
+        max_input = input("What is the max damage of your weapon?: ")
+        weapon = Weapon(weapon_input, max_input)
+        return weapon
     def create_armor(self):
-        '''
+        ''' 
         This method lets user create armor,
         prompt them for necessary info,
         return new armor object
         '''
-        pass
+        print("Let's give your hero some armor!")
+        armor_input = input("Name your armor: ")
+        max_input = input("What is the max defense of your armor?: ")
+        armor = Armor(armor_input, max_input)
     def create_hero(self):
         '''
         This method lets user create a hero,
