@@ -67,7 +67,7 @@ class Hero:
             return 0
         else:
             for armor in self.armors:
-                total_def += armor.defend()
+                total_def += armor.block()
             return total_def
     
 
@@ -116,13 +116,13 @@ class Team:
 
     def view_heroes(self):
         '''Prints out all heroes to console.'''
-        hero_index = print(self.heroes.index())
-        return hero_index
-        
+        for hero in self.heroes:
+            print("{}\n".format(hero.name))
+
 class Arena:
     def __init__(self):
-      self.team_one = None
-      self.team_two = None
+      self.team_one = []
+      self.team_two = []
 
     def create_ability(self):
         '''
@@ -157,6 +157,8 @@ class Arena:
         armor_input = input("Name your armor: ")
         max_input = input("What is the max defense of your armor?: ")
         armor = Armor(armor_input, max_input)
+
+        return armor
     def create_hero(self):
         '''
         This method lets user create a hero,
@@ -176,7 +178,14 @@ class Arena:
         call self.hero() for every hero the user wants to add,
         add created hero to team one
         '''
-        pass
+        
+        hero_num_input = int(input("How may heroes are on your team?: "))
+        while hero_num_input > 0:
+            hero = self.create_hero()
+            hero_num_input -= 1
+            self.team_one.append(hero)
+        
+        
     def build_team_two(self):
         '''
         This method will let user create team two,
@@ -184,7 +193,12 @@ class Arena:
         call self.hero() for every hero the user wants to add,
         add created hero to team two
         '''
-        pass
+        hero_num_input = int(input("How may heroes are on your team?: "))
+        while hero_num_input > 0:
+            hero = self.create_hero()
+            hero_num_input -= 1
+            self.team_two.append(hero)
+
     def team_battle(self):
         '''
         This method battes with both teams,
