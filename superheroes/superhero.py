@@ -35,12 +35,13 @@ class Hero:
 
     def fight(self, opponent):
         #need to update the number of kills the hero has when opponent dies
-
+        
      '''Runs a loop to attack opponent until someoe dies'''
      while self.is_alive() and opponent.is_alive():
         hero_damage = self.attack() 
-        opponent.take_damage(damage)
-        self.take_damage(damage)
+        opponent_damage = self.attack()
+        opponent.take_damage(hero_damage)
+        self.take_damage(opponent_damage)
 
     def add_weapon(self, weapon):
         '''
@@ -125,6 +126,16 @@ class Team:
             if hero.is_alive():
                 alive_list.append(hero)
         return alive_list
+
+    def attack(self, opponents):
+        while len(self.alive_heroes()) > 0 and len(opponents.alive_heroes()) > 0:
+            hero = random.choice(self.alive_heroes())
+            opponent = random.choice(self.alive_heroes())
+            hero.fight(opponent)
+            opponent.fight(hero)
+    def revive_heroes(self, health=100):
+        for hero in self.heroes:
+            hero.current_health = health
 class Arena:
     def __init__(self):
       self.team_one = []
@@ -177,14 +188,13 @@ class Arena:
         hero.add_armor(self.create_armor())
         hero.add_weapon(self.create_weapon())
         return user_hero
-    def build_team_one(self):
+    def build_team_one(self, name):
         '''
         This method will let user create team one,
         prompt them for number of heroes,
         call self.hero() for every hero the user wants to add,
         add created hero to team one
         '''
-        
         hero_num_input = int(input("How may heroes are on your team?: "))
         while hero_num_input > 0:
             hero = self.create_hero()
