@@ -38,7 +38,7 @@ class Hero:
 
      '''Runs a loop to attack opponent until someoe dies'''
      while self.is_alive() and opponent.is_alive():
-        damage = self.attack() 
+        hero_damage = self.attack() 
         opponent.take_damage(damage)
         self.take_damage(damage)
 
@@ -118,7 +118,13 @@ class Team:
         '''Prints out all heroes to console.'''
         for hero in self.heroes:
             print("{}\n".format(hero.name))
-
+    def alive_heroes(self):
+        '''adds heroes that are still alive to a list'''
+        alive_list = []
+        for hero in self.heroes:
+            if hero.is_alive():
+                alive_list.append(hero)
+        return alive_list
 class Arena:
     def __init__(self):
       self.team_one = []
