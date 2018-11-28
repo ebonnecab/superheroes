@@ -21,7 +21,7 @@ class Hero:
     def take_damage(self, damage):
       #use new defend method before updating health
       #update number of deaths if the hero dies
-        self.current_health -= damage
+        self.current_health -= (self.defend - damage)
 
     def add_kill(self, num_kills):
         self.kills += num_kills
@@ -196,7 +196,7 @@ class Arena:
         hero.add_armor(self.create_armor())
         hero.add_weapon(self.create_weapon())
         return user_hero
-    def build_team_one(self, name):
+    def build_team_one(self):
         '''
         This method will let user create team one,
         prompt them for number of heroes,
@@ -225,7 +225,7 @@ class Arena:
 
     def team_battle(self):
         '''
-        This method battes with both teams,
+        This method battles with both teams,
         call the attack method in team objects for functionality
         '''
         pass
@@ -234,7 +234,8 @@ class Arena:
         This method prints out battle stats, kill/death ratio,
         winning team, surviving heros
         '''
-        pass
+        # self.team_one.stats()
+        # self.team_two.stats()
 
 if __name__ == "__main__":
         hero = Hero("Wonder Woman")
@@ -252,6 +253,8 @@ if __name__ == "__main__":
         team_one = Team("O")
         team_one.add_hero(hero2)
         arena = Arena()
+        # arena.show_stats
+        arena.build_team_one()
 
         
 
