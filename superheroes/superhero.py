@@ -10,8 +10,7 @@ class Hero:
         self.kills = 0
    
     def add_ability(self, ability):
-        new_ability = self.abilities.append(ability)
-        return new_ability
+        self.abilities.append(ability)
 
     def attack(self):
         total = 0
@@ -28,20 +27,27 @@ class Hero:
         self.kills += num_kills
         
     def is_alive(self):
-        if self.current_health > 0:
-            return True
-        else:
-            return False
+        return self.current_health > 0
+            
+          
 
     def fight(self, opponent):
-        #need to update the number of kills the hero has when opponent dies
-        
-     '''Runs a loop to attack opponent until someoe dies'''
-     while self.is_alive() and opponent.is_alive():
-        hero_damage = self.attack() 
-        opponent_damage = self.attack()
-        opponent.take_damage(hero_damage)
-        self.take_damage(opponent_damage)
+        '''Runs a loop to attack opponent until someoe dies'''
+        fighting = True
+        while fighting:
+            hero_damage = self.attack()
+            opponent_damage = self.attack()
+            opponent.take_damage(hero_damage)
+            self.take_damage(opponent_damage)
+            if self.is_alive():
+                self.add_kill(1)
+                opponent.deaths += 1
+                fighting = False
+            else:
+                opponent.add_kill(1)
+                self.deaths += 1
+                fighting = False
+       
 
     def add_weapon(self, weapon):
         '''
@@ -100,39 +106,41 @@ class Armor:
         return random.randint(0, self.max_block)
 
 class Team:
-    def init(self, team_name):
+    def __init__(self, team_name):
         '''Instantiate resources.'''
-        self.name = team_name
+        self.team_name = team_name
         self.heroes = []
 
     def add_hero(self, Hero):
         '''Add hero object to heroes list.'''
-        new_hero = self.heroes.append(Hero)
-        return new_hero
+        self.heroes.append(Hero)
 
     def remove_hero(self, name):
         '''Removes hero from hero list.'''
-        delete_hero = self.heroes.remove(name)
-        return delete_hero
+        self.heroes.remove(name)
+  
 
     def view_heroes(self):
         '''Prints out all heroes to console.'''
         for hero in self.heroes:
-            print("{}\n".format(hero.name))
+            print("{}".format(hero.name))
     def alive_heroes(self):
         '''adds heroes that are still alive to a list'''
         alive_list = []
         for hero in self.heroes:
             if hero.is_alive():
                 alive_list.append(hero)
+
         return alive_list
 
     def attack(self, opponents):
         while len(self.alive_heroes()) > 0 and len(opponents.alive_heroes()) > 0:
             hero = random.choice(self.alive_heroes())
-            opponent = random.choice(self.alive_heroes())
+            opponent = random.choice(opponents.alive_heroes())
             hero.fight(opponent)
             opponent.fight(hero)
+
+
     def revive_heroes(self, health=100):
         for hero in self.heroes:
             hero.current_health = health
@@ -230,17 +238,23 @@ class Arena:
 
 if __name__ == "__main__":
         hero = Hero("Wonder Woman")
-        print(hero.attack())
+        # print(hero.attack())
         ability = Ability("Divine speed", 300)
         hero.add_ability(ability)
-        print(hero.attack())
+        # print(hero.attack())
         new_ability = Ability("Super Human Strength", 800)
         hero.add_ability(new_ability)
-        print(hero.attack())
+        # print(hero.attack())
         hero2 = Hero("Jodie Foster")
         ability2 = Ability("Science", 800)
         hero2.add_ability(ability2)
         hero.fight(hero2)
+        team_one = Team("O")
+        team_one.add_hero(hero2)
+        arena = Arena()
+
+        
+
         
 
         
