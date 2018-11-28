@@ -139,15 +139,20 @@ class Team:
             opponent = random.choice(opponents.alive_heroes())
             hero.fight(opponent)
             opponent.fight(hero)
-
+    
+    def still_alive(self):
+        for hero in self.heroes:
+            if hero.current_health > 0:
+                return True
+        return False
 
     def revive_heroes(self, health=100):
         for hero in self.heroes:
             hero.current_health = health
 class Arena:
     def __init__(self):
-      self.team_one = []
-      self.team_two = []
+      self.team_one = None
+      self.team_two = None
 
     def create_ability(self):
         '''
@@ -228,7 +233,14 @@ class Arena:
         This method battles with both teams,
         call the attack method in team objects for functionality
         '''
-        pass
+        while self.team_one.still_alive() and self.team_two.still_alive():
+            self.team_one.attack(self.team_two)
+            self.team_two.attack(self.team_two)
+        if self.team_one.still_alive():
+            print(self.team_one.name, " won the battle!")
+        else:
+            print(self.team_two.name, " won the battle!")
+
     def show_stats(self):
         '''
         This method prints out battle stats, kill/death ratio,
