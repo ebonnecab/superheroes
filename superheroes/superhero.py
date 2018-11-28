@@ -21,7 +21,7 @@ class Hero:
     def take_damage(self, damage):
       #use new defend method before updating health
       #update number of deaths if the hero dies
-        self.current_health -= (self.defend - damage)
+        self.current_health -= (self.defend() - damage)
 
     def add_kill(self, num_kills):
         self.kills += num_kills
