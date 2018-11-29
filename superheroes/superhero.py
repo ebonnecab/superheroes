@@ -168,7 +168,7 @@ class Arena:
         '''
         print("Time to give your hero some abilities!")
         ability_input= input("Name your special ability: ")
-        max_input = input("What is the max damage of your ability: ")
+        max_input = int(input("What is the max damage of your ability: "))
         ability = Ability(ability_input, max_input)
         return ability
 
@@ -180,7 +180,7 @@ class Arena:
         '''
         print("Next, you should give your hero a weapon!")
         weapon_input = input("What is the name of your weapon?: ")
-        max_input = input("What is the max damage of your weapon?: ")
+        max_input = int(input("What is the max damage of your weapon?: "))
         weapon = Weapon(weapon_input, max_input)
         return weapon
     def create_armor(self):
@@ -191,7 +191,7 @@ class Arena:
         '''
         print("Let's give your hero some armor!")
         armor_input = input("Name your armor: ")
-        max_input = input("What is the max defense of your armor?: ")
+        max_input = int(input("What is the max defense of your armor?: "))
         armor = Armor(armor_input, max_input)
 
         return armor
@@ -203,9 +203,9 @@ class Arena:
         '''
         hero_input = input("Name your Hero!: ")
         user_hero = Hero(hero_input)
-        hero.add_ability(self.create_ability())
-        hero.add_armor(self.create_armor())
-        hero.add_weapon(self.create_weapon())
+        user_hero.add_ability(self.create_ability())
+        user_hero.add_armor(self.create_armor())
+        user_hero.add_weapon(self.create_weapon())
         return user_hero
 
     def build_team(self):
@@ -241,7 +241,8 @@ class Arena:
         This method battles with both teams,
         call the attack method in team objects for functionality
         '''
-        pass
+        self.team_one.attack(self.team_two)
+        
     def show_stats(self):
         '''
         This method prints out battle stats, kill/death ratio,
@@ -250,25 +251,37 @@ class Arena:
         self.team_one.stats()
         self.team_two.stats()
 
-if __name__ == "__main__":
-        hero = Hero("Wonder Woman")
-        print(hero.attack())
-        ability = Ability("Divine speed", 300)
-        hero.add_ability(ability)
-        print(hero.attack())
-        new_ability = Ability("Super Human Strength", 800)
-        hero.add_ability(new_ability)
-        print(hero.attack())
-        hero2 = Hero("Jodie Foster")
-        ability2 = Ability("Science", 800)
-        hero2.add_ability(ability2)
-        hero.fight(hero2)
-        team_one = Team("O")
-        team_one.add_hero(hero2)
-        arena = Arena()
-        
-        arena.show_stats()
+        if (len(self.team_one.alive_heroes()) > 0):
+            print("Team one is the winner!")
+            print(self.team_one.alive_heroes())
+        else:
+            print("Team two won")
+            print(self.team_two.alive_heroes())
 
+if __name__ == "__main__":
+    game_is_running = True
+
+    # Instantiate Game Arena
+    arena = Arena()
+
+    #Build Teams
+    arena.build_team_one()
+    arena.build_team_two()
+
+    while game_is_running:
+
+        arena.team_battle()
+        arena.show_stats()
+        play_again = input("Play Again? Y or N: ")
+
+        #Check for Player Input
+        if play_again.lower() == "n":
+            game_is_running = False
+
+        else:
+            #Revive heroes to play again
+            arena.team_one.revive_heroes()
+            arena.team_two.revive_heroes()
 
         
 
