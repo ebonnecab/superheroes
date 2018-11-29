@@ -154,7 +154,7 @@ class Team:
         This data must be output to the console.
         '''
         for hero in self.heroes:
-            print("Your hero had {} kills. Your hero had {} deaths.".format(hero.kills, hero.deaths))
+            print("{} had {} kills and {} deaths.".format(self.heroes, hero.kills, hero.deaths))
 class Arena:
     def __init__(self):
       self.team_one = None
@@ -209,7 +209,7 @@ class Arena:
         return user_hero
 
     def build_team(self):
-        team_name = input("Enter a name for the team: ")
+        team_name = input("It is time to name your team!: ")
         team = Team(team_name)
         hero_num_input = int(input("How may heroes are on your team?: "))
         while hero_num_input > 0:
