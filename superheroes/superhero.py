@@ -19,8 +19,6 @@ class Hero:
         return total
             
     def take_damage(self, damage):
-      #use new defend method before updating health
-      #update number of deaths if the hero dies
         self.current_health -= damage
 
     def add_kill(self, num_kills):
@@ -29,8 +27,6 @@ class Hero:
     def is_alive(self):
         return self.current_health > 0
             
-          
-
     def fight(self, opponent):
         '''Runs a loop to attack opponent until someoe dies'''
         fighting = True
@@ -48,7 +44,6 @@ class Hero:
                 self.deaths += 1
                 fighting = False
        
-
     def add_weapon(self, weapon):
         '''
         This method will append the weapon object passed in as an argument to the list of abilities that already exists -- self.abilities.
@@ -77,9 +72,6 @@ class Hero:
                 total_def += armor.block()
             return total_def
     
-
-
-
 class Ability:
     def __init__ (self, name, max_attack):
         '''Initialize starting values'''
@@ -119,7 +111,6 @@ class Team:
         '''Removes hero from hero list.'''
         self.heroes.remove(name)
   
-
     def view_heroes(self):
         '''Prints out all heroes to console.'''
         for hero in self.heroes:
@@ -140,7 +131,6 @@ class Team:
             hero.fight(opponent)
             opponent.fight(hero)
 
-
     def revive_heroes(self, health=100):
         for hero in self.heroes:
             hero.current_health = health
@@ -155,6 +145,7 @@ class Team:
         '''
         for hero in self.heroes:
             print("{} had {} kills and {} deaths.".format(self.heroes, hero.kills, hero.deaths))
+
 class Arena:
     def __init__(self):
       self.team_one = None
@@ -183,6 +174,7 @@ class Arena:
         max_input = int(input("What is the max damage of your weapon?: "))
         weapon = Weapon(weapon_input, max_input)
         return weapon
+
     def create_armor(self):
         ''' 
         This method lets user create armor,
@@ -193,8 +185,8 @@ class Arena:
         armor_input = input("Name your armor: ")
         max_input = int(input("What is the max defense of your armor?: "))
         armor = Armor(armor_input, max_input)
-
         return armor
+
     def create_hero(self):
         '''
         This method lets user create a hero,
@@ -282,9 +274,3 @@ if __name__ == "__main__":
             #Revive heroes to play again
             arena.team_one.revive_heroes()
             arena.team_two.revive_heroes()
-
-        
-
-        
-
-        
