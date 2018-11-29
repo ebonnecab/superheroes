@@ -115,6 +115,7 @@ class Team:
         '''Prints out all heroes to console.'''
         for hero in self.heroes:
             print("{}".format(hero.name))
+            
     def alive_heroes(self):
         '''adds heroes that are still alive to a list'''
         alive_list = []
