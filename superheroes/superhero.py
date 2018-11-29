@@ -144,7 +144,7 @@ class Team:
         This data must be output to the console.
         '''
         for hero in self.heroes:
-            print("{} had {} kills and {} deaths.".format(self.heroes, hero.kills, hero.deaths))
+            print("{} had {} kills and {} deaths.".format(hero.name, hero.kills, hero.deaths))
 
 class Arena:
     def __init__(self):
