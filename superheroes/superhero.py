@@ -27,7 +27,7 @@ class Hero:
         self.kills += num_kills
         
     def is_alive(self):
-        return self.current_health > 
+        return self.current_health > 0
             
           
 
@@ -144,10 +144,21 @@ class Team:
     def revive_heroes(self, health=100):
         for hero in self.heroes:
             hero.current_health = health
+    
+    def stats(self):
+        '''
+        This method should print the ratio of 
+        kills/deaths for each member of the 
+        team to the screen. 
+
+        This data must be output to the console.
+        '''
+        for hero in self.heroes:
+            print("Your hero had {} kills. Your hero had {} deaths.".format(hero.kills, hero.deaths))
 class Arena:
     def __init__(self):
-      self.team_one = []
-      self.team_two = []
+      self.team_one = None
+      self.team_two = None
 
     def create_ability(self):
         '''
@@ -196,6 +207,17 @@ class Arena:
         hero.add_armor(self.create_armor())
         hero.add_weapon(self.create_weapon())
         return user_hero
+
+    def build_team(self):
+        team_name = input("Enter a name for the team: ")
+        team = Team(team_name)
+        hero_num_input = int(input("How may heroes are on your team?: "))
+        while hero_num_input > 0:
+            hero = self.create_hero()
+            hero_num_input -= 1
+            team.add_hero(hero)
+        return team
+        
     def build_team_one(self):
         '''
         This method will let user create team one,
@@ -203,12 +225,7 @@ class Arena:
         call self.hero() for every hero the user wants to add,
         add created hero to team one
         '''
-        hero_num_input = int(input("How may heroes are on your team?: "))
-        while hero_num_input > 0:
-            hero = self.create_hero()
-            hero_num_input -= 1
-            self.team_one.append(hero)
-        
+        self.team_one = self.build_team()
         
     def build_team_two(self):
         '''
@@ -217,11 +234,7 @@ class Arena:
         call self.hero() for every hero the user wants to add,
         add created hero to team two
         '''
-        hero_num_input = int(input("How may heroes are on your team?: "))
-        while hero_num_input > 0:
-            hero = self.create_hero()
-            hero_num_input -= 1
-            self.team_two.append(hero)
+        self.team_two = self.build_team()
 
     def team_battle(self):
         '''
@@ -234,18 +247,18 @@ class Arena:
         This method prints out battle stats, kill/death ratio,
         winning team, surviving heros
         '''
-        # self.team_one.stats()
-        # self.team_two.stats()
+        self.team_one.stats()
+        self.team_two.stats()
 
 if __name__ == "__main__":
         hero = Hero("Wonder Woman")
-        # print(hero.attack())
+        print(hero.attack())
         ability = Ability("Divine speed", 300)
         hero.add_ability(ability)
-        # print(hero.attack())
+        print(hero.attack())
         new_ability = Ability("Super Human Strength", 800)
         hero.add_ability(new_ability)
-        # print(hero.attack())
+        print(hero.attack())
         hero2 = Hero("Jodie Foster")
         ability2 = Ability("Science", 800)
         hero2.add_ability(ability2)
@@ -253,8 +266,9 @@ if __name__ == "__main__":
         team_one = Team("O")
         team_one.add_hero(hero2)
         arena = Arena()
-        # arena.show_stats
-        arena.build_team_one()
+        
+        arena.show_stats()
+
 
         
 
