@@ -29,20 +29,25 @@ class Hero:
             
     def fight(self, opponent):
         '''Runs a loop to attack opponent until someoe dies'''
-        fighting = True
-        while fighting:
+        while self.is_alive() and opponent.is_alive():
             hero_damage = self.attack()
-            opponent_damage = self.attack()
+            print(
+                f"{self.name} attacks {opponent.name} for {hero_damage} damage")
+            opponent_damage = opponent.attack()
+            print(f"{opponent.name} attacks {self.name} for {opponent_damage} damage")
+
             opponent.take_damage(hero_damage)
+            print(opponent.current_health)
             self.take_damage(opponent_damage)
-            if self.is_alive():
-                self.add_kill(1)
-                opponent.deaths += 1
-                fighting = False
-            else:
-                opponent.add_kill(1)
-                self.deaths += 1
-                fighting = False
+            print(self.current_health)
+        if not opponent.is_alive():
+            self.add_kill(1)
+            opponent.deaths += 1
+        if not self.is_alive():
+            opponent.add_kill(1)
+            self.deaths += 1
+
+
        
     def add_weapon(self, weapon):
         '''
@@ -246,10 +251,12 @@ class Arena:
 
         if (len(self.team_one.alive_heroes()) > 0):
             print("Team one is the winner!")
-            print(self.team_one.alive_heroes())
+            for hero in self.team_one.alive_heroes():
+                print(hero.name)
         else:
             print("Team two won")
-            print(self.team_two.alive_heroes())
+            for hero in self.team_two.alive_heroes():
+                print(hero.name)
 
 if __name__ == "__main__":
     game_is_running = True
